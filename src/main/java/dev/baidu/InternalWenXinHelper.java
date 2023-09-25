@@ -1,8 +1,6 @@
 package dev.baidu;
 
 import static dev.langchain4j.data.message.AiMessage.aiMessage;
-import static dev.baidu.WenXinModelName.GPT_3_5_TURBO;
-import static dev.baidu.WenXinModelName.GPT_4;
 import static dev.baidu.client.chat.Role.ASSISTANT;
 import static dev.baidu.client.chat.Role.FUNCTION;
 import static dev.baidu.client.chat.Role.SYSTEM;
