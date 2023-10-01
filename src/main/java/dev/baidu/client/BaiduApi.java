@@ -18,20 +18,16 @@ import retrofit2.http.Query;
 public interface BaiduApi {
         @POST("rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions")
         @Headers({"Content-Type: application/json"})
-        Call<ChatCompletionResponse> chatCompletions(@Body ChatCompletionRequest var1,
-                @Query("access_token") String accessToken);
+        Call<ChatCompletionResponse> chatCompletions(@Body ChatCompletionRequest var1, @Query("access_token") String accessToken);
         @POST("rpc/2.0/ai_custom/v1/wenxinworkshop/completions/{serviceName}")
         @Headers({"Content-Type: application/json"})
-        Call<CompletionResponse> completions(@Body CompletionRequest var1, @Query("access_token") String accessToken,
-                @Path(value = "serviceName", encoded = false) String serviceName);
+        Call<CompletionResponse> completions(@Body CompletionRequest var1, @Query("access_token") String accessToken,@Path(value = "serviceName",encoded = false) String serviceName);
         @POST("rpc/2.0/ai_custom/v1/wenxinworkshop/embeddings/{modelName}")
         @Headers({"Content-Type: application/json"})
-        Call<EmbeddingResponse> embeddings(@Body EmbeddingRequest var1, @Query("access_token") String accessToken,
-                @Path(value = "modelName", encoded = false) String modelName);
+        Call<EmbeddingResponse> embeddings(@Body EmbeddingRequest var1,@Query("access_token") String accessToken,@Path(value = "modelName",encoded = false) String modelName);
         @GET("oauth/2.0/token")
         @Headers({"Content-Type: application/json"})
-        Call<ChatTokenResponse> getToken(@Query("grant_type") String grantType, @Query("client_id") String clientId,
-                @Query("client_secret") String clientSecret);
+        Call<ChatTokenResponse> getToken(@Query("grant_type") String grantType,@Query("client_id") String clientId,@Query("client_secret") String clientSecret);
 
     }
 

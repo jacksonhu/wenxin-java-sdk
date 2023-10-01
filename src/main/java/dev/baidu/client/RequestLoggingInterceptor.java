@@ -20,7 +20,7 @@ public class RequestLoggingInterceptor implements Interceptor {
     RequestLoggingInterceptor() {
     }
 
-    public Response intercept(Interceptor.Chain chain) throws IOException {
+    public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         log(request);
         return chain.proceed(request);

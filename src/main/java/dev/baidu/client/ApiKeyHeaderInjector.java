@@ -12,7 +12,7 @@ public class ApiKeyHeaderInjector implements Interceptor {
         this.apiKey = apiKey;
     }
 
-    public Response intercept(Interceptor.Chain chain) throws IOException {
+    public Response intercept(Chain chain) throws IOException {
         Request request = chain.request().newBuilder().addHeader("api-key", this.apiKey).build();
         return chain.proceed(request);
     }

@@ -13,7 +13,7 @@ public class ResponseLoggingInterceptor implements Interceptor {
     ResponseLoggingInterceptor() {
     }
 
-    public Response intercept(Interceptor.Chain chain) throws IOException {
+    public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         Response response = chain.proceed(request);
         log(response);

@@ -7,11 +7,20 @@
     <list default="true" id="53596d66-b456-45bf-b889-b189558ce84f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/baidu/InternalWenXinHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/baidu/InternalWenXinHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/baidu/client/moderation/Categories.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/baidu/client/moderation/CategoryScores.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/baidu/client/moderation/ModerationRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/baidu/client/moderation/ModerationResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/baidu/client/moderation/ModerationResult.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/baidu/WenXinModelName.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/baidu/WenXinModelName.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/baidu/client/ApiKeyHeaderInjector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/baidu/client/ApiKeyHeaderInjector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/baidu/client/AuthorizationHeaderInjector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/baidu/client/AuthorizationHeaderInjector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/baidu/client/BaiduApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/baidu/client/BaiduApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/baidu/client/RequestExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/baidu/client/RequestExecutor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/baidu/client/RequestLoggingInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/baidu/client/RequestLoggingInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/baidu/client/ResponseLoggingInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/baidu/client/ResponseLoggingInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/baidu/client/chat/ChatCompletionRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/baidu/client/chat/ChatCompletionRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/baidu/client/chat/ChatTokenResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/baidu/client/chat/ChatTokenResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/baidu/client/chat/Examples.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/baidu/client/chat/Examples.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/baidu/client/chat/Function.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/baidu/client/chat/Function.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/baidu/client/chat/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/baidu/client/chat/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/baidu/client/completion/CompletionRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/baidu/client/completion/CompletionRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/baidu/client/embedding/EmbeddingRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/baidu/client/embedding/EmbeddingRequest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +102,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1695610579618</updated>
-      <workItem from="1695610582060" duration="1504000" />
+      <workItem from="1695610582060" duration="4017000" />
     </task>
     <servers />
   </component>
