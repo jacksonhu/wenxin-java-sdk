@@ -17,6 +17,7 @@ public final class ChatCompletionRequest {
     private final Double penalty_score;
     private final String user_id;
     private final List<Function> functions;
+    private final String system;
 
     private ChatCompletionRequest(Builder builder) {
         this.messages = builder.messages;
@@ -26,6 +27,7 @@ public final class ChatCompletionRequest {
         this.penalty_score = builder.penalty_score;
         this.user_id = builder.user_id;
         this.functions = builder.functions;
+        this.system = builder.system;
     }
 
 
@@ -45,12 +47,14 @@ public final class ChatCompletionRequest {
     public Boolean stream() {
         return this.stream;
     }
+    public String system() {
+        return this.system;
+    }
 
 
     public Double penalty_score() {
         return this.penalty_score;
     }
-
 
 
     public String user_id() {
@@ -60,7 +64,6 @@ public final class ChatCompletionRequest {
     public List<Function> functions() {
         return this.functions;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -76,26 +79,28 @@ public final class ChatCompletionRequest {
 
         return new EqualsBuilder().append(messages, that.messages)
                 .append(temperature, that.temperature).append(top_p, that.top_p).append(stream, that.stream)
-                .append(penalty_score, that.penalty_score)
-                .append(user_id, that.user_id).append(functions, that.functions).isEquals();
+                .append(penalty_score, that.penalty_score).append(user_id, that.user_id)
+                .append(functions, that.functions)
+                .append(system, that.system).isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37).append(messages).append(temperature).append(top_p).append(stream)
-                .append(penalty_score).append(user_id).append(functions).toHashCode();
+                .append(penalty_score).append(user_id).append(functions).append(system).toHashCode();
     }
 
     @Override
     public String toString() {
         return "ChatCompletionRequest{" +
-                ", messages=" + messages +
+                "messages=" + messages +
                 ", temperature=" + temperature +
                 ", top_p=" + top_p +
                 ", stream=" + stream +
                 ", penalty_score=" + penalty_score +
                 ", user_id='" + user_id + '\'' +
                 ", functions=" + functions +
+                ", system='" + system + '\'' +
                 '}';
     }
 
@@ -105,13 +110,14 @@ public final class ChatCompletionRequest {
 
     public static final class Builder {
 
-        private  List<Message> messages;
-        private  Double temperature;
-        private  Double top_p;
-        private  Boolean stream;
-        private  Double penalty_score;
-        private  String user_id;
-        private  List<Function> functions;
+        private List<Message> messages;
+        private Double temperature;
+        private Double top_p;
+        private Boolean stream;
+        private Double penalty_score;
+        private String user_id;
+        private List<Function> functions;
+        private  String system;
 
         private Builder() {
         }
@@ -125,8 +131,10 @@ public final class ChatCompletionRequest {
             this.penalty_score(instance.penalty_score);
             this.user_id(instance.user_id);
             this.functions(instance.functions);
+            this.system(instance.system);
             return this;
         }
+
 
 
         public Builder messages(List<Message> messages) {
@@ -187,6 +195,10 @@ public final class ChatCompletionRequest {
             this.temperature = temperature;
             return this;
         }
+        public Builder system(String system) {
+            this.system = system;
+            return this;
+        }
 
 
         public Builder top_p(Double top_p) {
@@ -200,14 +212,10 @@ public final class ChatCompletionRequest {
         }
 
 
-
-
         public Builder penalty_score(Double penalty_score) {
             this.penalty_score = penalty_score;
             return this;
         }
-
-
 
 
         public Builder user_id(String user_id) {

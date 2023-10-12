@@ -74,6 +74,9 @@ public class RequestLoggingInterceptor implements Interceptor {
     }
 
     private static String getBody(Request request) {
+        if("GET".equals(request.method())){
+            return "";
+        }
         try {
             Buffer buffer = new Buffer();
             request.body().writeTo(buffer);

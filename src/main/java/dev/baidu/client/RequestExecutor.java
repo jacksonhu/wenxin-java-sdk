@@ -1,12 +1,9 @@
 package dev.baidu.client;
 
-import java.io.IOException;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
-import okio.Buffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import retrofit2.Call;
@@ -63,16 +60,6 @@ public class RequestExecutor<Request, Response, ResponseContent> implements Sync
     }
 
     public ResponseContent execute() {
-        RequestBody body = this.call.request().body();
-        if (body != null) {
-            final Buffer buffer = new Buffer();
-            try {
-                body.writeTo(buffer);
-                LOG.debug(buffer.readUtf8());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
         return (new SyncRequestExecutor<>(this.call, this.responseContentExtractor)).execute();
     }
 

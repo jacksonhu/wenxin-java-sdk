@@ -8,6 +8,8 @@ import dev.baidu.client.completion.CompletionRequest;
 import dev.baidu.client.completion.CompletionResponse;
 import dev.baidu.client.embedding.EmbeddingRequest;
 import dev.baidu.client.embedding.EmbeddingResponse;
+import dev.baidu.client.plugin.PluginRequest;
+import dev.baidu.client.plugin.PluginResponse;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
@@ -88,12 +90,19 @@ public class BaiduClient {
     public static Builder builder() {
         return new Builder();
     }
-
+    public SyncOrAsyncOrStreaming<PluginResponse> chatPlugin(PluginRequest request,String serviceName) {
+        refreshToken();
+        return new RequestExecutor(this.baiduApi.chatPlugin(serviceName,request, this.token), (r) -> {
+            return r;
+        }, () -> {
+            return  request.toBuilder().stream(true).build();
+        }, PluginResponse.class, (r) -> {
+            return r;
+        });
+    }
     public SyncOrAsyncOrStreaming<ChatCompletionResponse> chatCompletion(ChatCompletionRequest request) {
         refreshToken();
-        ChatCompletionRequest syncRequest = ChatCompletionRequest.builder().from(request).stream(false)
-                .build();
-        return new RequestExecutor(this.baiduApi.chatCompletions(syncRequest, this.token), (r) -> {
+        return new RequestExecutor(this.baiduApi.chatCompletions(request, this.token), (r) -> {
             return r;
         }, () -> {
             return ChatCompletionRequest.builder().from(request).stream(true).build();
@@ -105,24 +114,22 @@ public class BaiduClient {
     @Experimental
     public SyncOrAsyncOrStreaming<String> chatCompletion(String prompt, boolean stream) {
         refreshToken();
-        ChatCompletionRequest request = ChatCompletionRequest.builder().adduserMessage(prompt).build();
-        ChatCompletionRequest syncRequest = ChatCompletionRequest.builder().from(request).stream((Boolean) null)
-                .build();
+        ChatCompletionRequest request = ChatCompletionRequest.builder().adduserMessage(prompt).stream(stream).build();
 
-        return new RequestExecutor<>(this.baiduApi.chatCompletions(syncRequest, this.token),
+        return new RequestExecutor<>(this.baiduApi.chatCompletions(request, this.token),
                 ChatCompletionResponse::getResult, () -> {
-            return ChatCompletionRequest.builder().from(request).stream(stream).build();
+            return ChatCompletionRequest.builder().from(request).stream(true).build();
         }, ChatCompletionResponse.class, ChatCompletionResponse::getResult);
     }
 
     public SyncOrAsyncOrStreaming<CompletionResponse> completion(CompletionRequest request, boolean stream,
             String serviceName) {
         refreshToken();
-        CompletionRequest syncRequest = CompletionRequest.builder().from(request).stream((Boolean) null).build();
-        return new RequestExecutor(this.baiduApi.completions(syncRequest, this.token, serviceName), (r) -> {
+        CompletionRequest syncRequest = CompletionRequest.builder().from(request).stream(stream).build();
+        return new RequestExecutor(this.baiduApi.completions(serviceName,syncRequest, this.token), (r) -> {
             return r;
         }, () -> {
-            return CompletionRequest.builder().from(request).stream(stream).build();
+            return CompletionRequest.builder().from(request).stream(true).build();
         }, CompletionResponse.class, (r) -> {
             return r;
         });
@@ -131,17 +138,16 @@ public class BaiduClient {
     @Experimental
     public SyncOrAsyncOrStreaming<String> completion(String prompt, boolean stream, String serviceName) {
         refreshToken();
-        CompletionRequest request = CompletionRequest.builder().prompt(prompt).build();
-        CompletionRequest syncRequest = CompletionRequest.builder().from(request).stream((Boolean) null).build();
-        return new RequestExecutor<>(this.baiduApi.completions(syncRequest, this.token, serviceName),
+        CompletionRequest syncRequest = CompletionRequest.builder().stream(stream).prompt(prompt).build();
+        return new RequestExecutor<>(this.baiduApi.completions(serviceName,syncRequest, this.token),
                 CompletionResponse::getResult,
                 () -> {
-                    return CompletionRequest.builder().from(request).stream(stream).build();
+                    return CompletionRequest.builder().from(syncRequest).stream(true).build();
                 }, CompletionResponse.class, CompletionResponse::getResult);
     }
     public SyncOrAsync<EmbeddingResponse> embedding(EmbeddingRequest request,String modelName) {
         refreshToken();
-        return new RequestExecutor(this.baiduApi.embeddings(request, this.token,modelName), (r) -> {
+        return new RequestExecutor(this.baiduApi.embeddings(modelName,request, this.token), (r) -> {
             return r;
         });
     }
@@ -150,7 +156,7 @@ public class BaiduClient {
     public SyncOrAsync<List<Float>> embedding(String input,String modelName) {
         refreshToken();
         EmbeddingRequest request = EmbeddingRequest.builder().input(new String[]{input}).build();
-        return new RequestExecutor<>(this.baiduApi.embeddings(request, this.token,modelName), EmbeddingResponse::embedding);
+        return new RequestExecutor<>(this.baiduApi.embeddings(modelName,request, this.token), EmbeddingResponse::embedding);
     }
     private String refreshToken() {
         RequestExecutor<String, ChatTokenResponse, String> executor = new RequestExecutor<>(

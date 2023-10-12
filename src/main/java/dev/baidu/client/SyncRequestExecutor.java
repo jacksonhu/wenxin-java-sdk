@@ -2,6 +2,8 @@ package dev.baidu.client;
 
 import java.io.IOException;
 import java.util.function.Function;
+import okhttp3.Request;
+import okio.Buffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import retrofit2.Call;
@@ -19,7 +21,9 @@ public class SyncRequestExecutor<Response, ResponseContent> {
 
     public ResponseContent execute() {
         try {
+            LOG.debug("request body:{}",getBody(this.call.request()));
             retrofit2.Response<Response> retrofitResponse =  this.call.execute();
+
             if (retrofitResponse.isSuccessful()) {
                 Response response = retrofitResponse.body();
                 LOG.debug("response body:{}",response.toString());
@@ -29,6 +33,18 @@ public class SyncRequestExecutor<Response, ResponseContent> {
             }
         } catch (IOException var3) {
             throw new RuntimeException(var3);
+        }
+    }
+    public  String getBody(Request request) {
+        if("GET".equals(request.method())){
+            return "";
+        }
+        try {
+            Buffer buffer = new Buffer();
+            request.body().writeTo(buffer);
+            return buffer.readUtf8();
+        } catch (Exception var2) {
+            return "[Exception happened while reading request body. Check logs for more details.]";
         }
     }
 }
