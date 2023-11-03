@@ -6,6 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="53596d66-b456-45bf-b889-b189558ce84f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/baidu/InternalWenXinHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/baidu/InternalWenXinHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/baidu/client/BaiduClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/baidu/client/BaiduClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/baidu/client/SyncRequestExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/baidu/client/SyncRequestExecutor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +46,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/loganhu/Documents/eclipse_workspace/wenxin-java-sdk/src/main",
+    "last_opened_file_path": "/Users/loganhu/Documents/eclipse_workspace/wenxin-java-sdk",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -56,7 +60,9 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/main" />
+      <recent name="$PROJECT_DIR$/src/main/java" />
     </key>
   </component>
   <component name="RunManager">
@@ -88,6 +94,8 @@
       <option name="presentableId" value="Default" />
       <updated>1695610579618</updated>
       <workItem from="1695610582060" duration="4759000" />
+      <workItem from="1697096744111" duration="95000" />
+      <workItem from="1698984021461" duration="212000" />
     </task>
     <servers />
   </component>

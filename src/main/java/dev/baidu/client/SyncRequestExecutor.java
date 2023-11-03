@@ -21,12 +21,9 @@ public class SyncRequestExecutor<Response, ResponseContent> {
 
     public ResponseContent execute() {
         try {
-            LOG.debug("request body:{}",getBody(this.call.request()));
             retrofit2.Response<Response> retrofitResponse =  this.call.execute();
-
             if (retrofitResponse.isSuccessful()) {
                 Response response = retrofitResponse.body();
-                LOG.debug("response body:{}",response.toString());
                 return this.responseContentExtractor.apply(response);
             } else {
                 throw Utils.toException(retrofitResponse);

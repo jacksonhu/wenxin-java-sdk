@@ -136,8 +136,8 @@ public class InternalWenXinHelper {
         if (StringUtils.isNotEmpty(response.getResult())) {
             return aiMessage(response.getResult());
         } else if(response.getFunction_call()==null){
-            LOG.error("request Wenxin model error:{}",response.toString());
-           throw new LllmEmptyResponseException("WenXin model response is empty");
+            LOG.error("WenXin model response is empty,request Wenxin model error:{}",response.toString());
+            return AiMessage.aiMessage("我暂时无法回答");
         }
         else {
             FunctionCall functionCall = response.getFunction_call();

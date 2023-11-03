@@ -173,6 +173,7 @@ public class BaiduClient {
         return this.baseUrl + endpoint;
     }
 
+
     public static class Builder {
 
         private String baseUrl;
