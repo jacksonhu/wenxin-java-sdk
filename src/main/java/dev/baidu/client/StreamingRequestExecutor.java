@@ -124,6 +124,8 @@ public class StreamingRequestExecutor<Request, Response, ResponseContent> {
 
             public void onFailure(EventSource eventSource, Throwable t, okhttp3.Response response) {
                 if (StreamingRequestExecutor.this.logStreamingResponses) {
+
+                    StreamingRequestExecutor.log.debug("reqeust url:",response.request().url().toString());
                     StreamingRequestExecutor.log.debug("onFailure()", t);
                     ResponseLoggingInterceptor.log(response);
                 }

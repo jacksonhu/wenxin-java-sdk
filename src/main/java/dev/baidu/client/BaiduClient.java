@@ -64,8 +64,8 @@ public class BaiduClient {
             }
 
             this.logStreamingResponses = serviceBuilder.logStreamingResponses;
-            this.wenxinClientId=serviceBuilder.wenXinApiKey;
-            this.wenxinClientSecret=serviceBuilder.wenXinSecretKey;
+            this.wenxinClientId = serviceBuilder.wenXinApiKey;
+            this.wenxinClientSecret = serviceBuilder.wenXinSecretKey;
             this.okHttpClient = okHttpClientBuilder.build();
             Retrofit retrofit = (new Retrofit.Builder()).baseUrl(serviceBuilder.baseUrl).client(this.okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create(Json.GSON)).build();
@@ -90,43 +90,50 @@ public class BaiduClient {
     public static Builder builder() {
         return new Builder();
     }
-    public SyncOrAsyncOrStreaming<PluginResponse> chatPlugin(PluginRequest request,String serviceName) {
+
+    public SyncOrAsyncOrStreaming<PluginResponse> chatPlugin(PluginRequest request, String serviceName) {
         refreshToken();
-        return new RequestExecutor(this.baiduApi.chatPlugin(serviceName,request, this.token), (r) -> {
+        return new RequestExecutor(this.baiduApi.chatPlugin(serviceName, request, this.token), (r) -> {
             return r;
         }, () -> {
-            return  request.toBuilder().stream(true).build();
+            return request.toBuilder().stream(true).build();
         }, PluginResponse.class, (r) -> {
             return r;
         });
     }
+
     public SyncOrAsyncOrStreaming<ChatCompletionResponse> chatCompletion(ChatCompletionRequest request) {
         refreshToken();
+
         return new RequestExecutor(this.baiduApi.chatCompletions(request, this.token), (r) -> {
             return r;
-        }, () -> {
+        }, this.okHttpClient, this.formatUrl("rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions_pro?access_token="+this.token), () -> {
             return ChatCompletionRequest.builder().from(request).stream(true).build();
         }, ChatCompletionResponse.class, (r) -> {
             return r;
-        });
+        }, this.logStreamingResponses);
+
     }
 
     @Experimental
-    public SyncOrAsyncOrStreaming<String> chatCompletion(String prompt, boolean stream) {
+    public SyncOrAsyncOrStreaming<ChatCompletionResponse> chatCompletion(String prompt, boolean stream) {
         refreshToken();
         ChatCompletionRequest request = ChatCompletionRequest.builder().adduserMessage(prompt).stream(stream).build();
 
-        return new RequestExecutor<>(this.baiduApi.chatCompletions(request, this.token),
-                ChatCompletionResponse::getResult, () -> {
+        return new RequestExecutor(this.baiduApi.chatCompletions(request, this.token), (r) -> {
+            return r;
+        }, this.okHttpClient, this.formatUrl("rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions_pro?access_token="+this.token), () -> {
             return ChatCompletionRequest.builder().from(request).stream(true).build();
-        }, ChatCompletionResponse.class, ChatCompletionResponse::getResult);
+        }, ChatCompletionResponse.class, (r) -> {
+            return r;
+        }, this.logStreamingResponses);
     }
 
     public SyncOrAsyncOrStreaming<CompletionResponse> completion(CompletionRequest request, boolean stream,
             String serviceName) {
         refreshToken();
         CompletionRequest syncRequest = CompletionRequest.builder().from(request).stream(stream).build();
-        return new RequestExecutor(this.baiduApi.completions(serviceName,syncRequest, this.token), (r) -> {
+        return new RequestExecutor(this.baiduApi.completions(serviceName, syncRequest, this.token), (r) -> {
             return r;
         }, () -> {
             return CompletionRequest.builder().from(request).stream(true).build();
@@ -139,25 +146,28 @@ public class BaiduClient {
     public SyncOrAsyncOrStreaming<String> completion(String prompt, boolean stream, String serviceName) {
         refreshToken();
         CompletionRequest syncRequest = CompletionRequest.builder().stream(stream).prompt(prompt).build();
-        return new RequestExecutor<>(this.baiduApi.completions(serviceName,syncRequest, this.token),
+        return new RequestExecutor<>(this.baiduApi.completions(serviceName, syncRequest, this.token),
                 CompletionResponse::getResult,
                 () -> {
                     return CompletionRequest.builder().from(syncRequest).stream(true).build();
                 }, CompletionResponse.class, CompletionResponse::getResult);
     }
-    public SyncOrAsync<EmbeddingResponse> embedding(EmbeddingRequest request,String modelName) {
+
+    public SyncOrAsync<EmbeddingResponse> embedding(EmbeddingRequest request, String modelName) {
         refreshToken();
-        return new RequestExecutor(this.baiduApi.embeddings(modelName,request, this.token), (r) -> {
+        return new RequestExecutor(this.baiduApi.embeddings(modelName, request, this.token), (r) -> {
             return r;
         });
     }
 
     @Experimental
-    public SyncOrAsync<List<Float>> embedding(String input,String modelName) {
+    public SyncOrAsync<List<Float>> embedding(String input, String modelName) {
         refreshToken();
         EmbeddingRequest request = EmbeddingRequest.builder().input(new String[]{input}).build();
-        return new RequestExecutor<>(this.baiduApi.embeddings(modelName,request, this.token), EmbeddingResponse::embedding);
+        return new RequestExecutor<>(this.baiduApi.embeddings(modelName, request, this.token),
+                EmbeddingResponse::embedding);
     }
+
     private String refreshToken() {
         RequestExecutor<String, ChatTokenResponse, String> executor = new RequestExecutor<>(
                 this.baiduApi.getToken(InternalWenXinHelper.GRANT_TYPE, this.wenxinClientId,

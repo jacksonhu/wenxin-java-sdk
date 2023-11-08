@@ -21,10 +21,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-    </dependency>
-    <dependency>
       <groupId>com.squareup.retrofit2</groupId>
       <artifactId>retrofit</artifactId>
       <version>${retrofit.version}</version>
@@ -69,6 +65,11 @@
       <artifactId>slf4j-api</artifactId>
       <version>2.0.7</version>
     </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>2.0.7</version>
+    </dependency>
 
     <!-- TEST -->
 
@@ -111,18 +112,6 @@
       <artifactId>assertj-core</artifactId>
       <version>3.24.2</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>dev.langchain4j</groupId>
-      <artifactId>langchain4j-core</artifactId>
-      <version>0.21.0</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>dev.langchain4j</groupId>
-      <artifactId>langchain4j-core</artifactId>
-      <version>0.21.0</version>
-      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>

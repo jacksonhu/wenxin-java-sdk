@@ -21,7 +21,7 @@ public interface BaiduApi {
         @POST("rpc/2.0/ai_custom/v1/wenxinworkshop/plugin/{serviceName}/")
         @Headers({"Content-Type: application/json"})
         Call<PluginResponse> chatPlugin(@Path(value = "serviceName",encoded = false) String serviceName,@Body PluginRequest var1, @Query("access_token") String accessToken);
-        @POST("rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions")
+        @POST("rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions_pro")
         @Headers({"Content-Type: application/json"})
         Call<ChatCompletionResponse> chatCompletions(@Body ChatCompletionRequest var1, @Query("access_token") String accessToken);
         @POST("rpc/2.0/ai_custom/v1/wenxinworkshop/completions/{serviceName}")
